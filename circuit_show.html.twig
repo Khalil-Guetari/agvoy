@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	
+	<h1>Circuit {{circuit.id}}</h1>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ circuit.id }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ circuit.description }}</td>
+        </tr>
+         <tr>
+            <th>Pays Depart</th>
+            <td>{{ circuit.paysDepart }}</td>
+        </tr>
+         <tr>
+            <th>Ville Depart</th>
+            <td>{{ circuit.villeDepart }}</td>
+        </tr>
+         <tr>
+            <th>Ville Arrivee</th>
+            <td>{{ circuit.villeArrivee }}</td>
+        </tr>
+         <tr>
+            <th>Duree Circuit</th>
+            <td>{{ circuit.dureeCircuit }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+        <th>Numéro Etape</th>
+        <th>Ville Etape</th>
+        <th>Nombre Jours</th>
+    </tr>
+  </thead>
+
+  {%  for etape in circuit.etapes %}
+  <tr>
+    <td>{{ etape.numeroEtape }}</td>
+    <td>{{ etape.villeEtape }}</td>
+    <td>{{ etape.nombreJours }}</td>
+  </tr>
+  {% endfor %} {# etapes #}
+</table>
+
+{{ dump(circuit) }}
+
+<a href="{{ path('frontoffice_home') }}">retour à l'accueil</a>
+	
+{% endblock %}
+
