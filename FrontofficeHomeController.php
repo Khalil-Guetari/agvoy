@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Circuit;
-use App\Repository\CircuitRepository;
+use App\Entity\ProgrammationCircuit;
 
 class FrontofficeHomeController extends AbstractController
 {
@@ -15,12 +15,12 @@ class FrontofficeHomeController extends AbstractController
     public function index()
     {
         $em = $this->getDoctrine()->getManager();
-        $circuits = $em->getRepository(Circuit::class)->findAll();
+        $programmations = $em->getRepository(ProgrammationCircuit::class)->findAll();
         
-        dump($circuits);
+        dump($programmations);
         
         return $this->render('front/home.html.twig', array(
-            'circuits' => $circuits,
+            'programmations' => $programmations,
         ));
     }
     /**
@@ -32,12 +32,12 @@ class FrontofficeHomeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         
-        $circuit = $em->getRepository(Circuit::class)->find($id);
+        $programmation = $em->getRepository(ProgrammationCircuit::class)->find($id);
         
-        dump($circuit);
+        dump($programmation);
         
         return $this->render('front/circuit_show.html.twig', [
-            'circuit' => $circuit,
+            'programmation' => $programmation,
         ]);
     }
 }

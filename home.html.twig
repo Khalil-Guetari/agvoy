@@ -1,40 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h1>Liste des circuits</h1>
 
-    <table class="table">
-        <thead>
+
+	<h1>Liste des circuits Programmés</h1>
+	<table class="table">
+		<thead>
             <tr>
                 <th>Id</th>
                 <th>Description</th>
-                <th>Pays Depart</th>
-                <th>Ville Depart</th>
-                <th>Ville Arrivee</th>
-                <th>Duree Circuit</th>
-                <th>Etapes</th>
+                <th>Nombre_Personnes</th>
+                <th>Prix</th
             </tr>
-        </thead>
-        <tbody>
-        {{ dump(circuits) }}
-        {% for circuit in circuits %}
+  		</thead>
+  		
+    {%  for programmation in programmations %}
+    
+    	<tr>
+    		<td>{{ programmation.id }}</td>
+    		<td>{{ programmation.circuit.description }}</td>
+    		<td>{{ programmation.nombrePersonnes }}</td>
+    		<td>{{ programmation.prix }}</td>
+    		<td>
+                	<a href="{{ path('front_circuit_show', {id: programmation.id}) }}">détails</a>
+            </td>
+        </tr>
+     {% else %}
             <tr>
-                <td>{{ circuit.id }}</td>
-                <td>{{ circuit.description }}</td>
-                <td>{{ circuit.paysDepart }}</td>
-                <td>{{ circuit.villeDepart }}</td>
-                <td>{{ circuit.villeArrivee }}</td>
-                <td>{{ circuit.dureeCircuit }}</td>
-                <td>
-                	<a href="{{ path('front_circuit_show', {id: circuit.id}) }}">détails</a>
-                </td>
-                {#<td>{{ circuit.etapes }}</td>#}
+                <td colspan="2">no programmated circuits found</td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no circuits found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
+  		</tr>
+  		
+    {% endfor %}
+     
     </table>
+    
+    {%  for programmation in programmations %}
+    
+    <h2>{{ programmation.circuit.description }}</h2>
+    <table>
+      	<thead>
+        <tr>
+            <th>Numéro Etape</th>
+            <th>Ville Etape</th>
+            <th>Nombre Jours</th>
+        </tr>
+      	</thead>
+
+      {%  for etape in programmation.circuit.etapes %}
+      
+          <tr>
+            <td>{{ etape.numeroEtape }}</td>
+            <td>{{ etape.villeEtape }}</td>
+            <td>{{ etape.nombreJours }}</td>
+          </tr>
+      
+      {% endfor %} {# etapes #}
+      
+	</table>
+	
+    {% endfor %}
+    
+    {{ dump(programmations) }}
+    
 {% endblock %}

@@ -2,33 +2,33 @@
 
 {% block body %}
 	
-	<h1>Circuit {{circuit.id}}</h1>
+	<h1>Circuit Programmé : {{programmation.circuit.description}}</h1>
 
 <table class="table">
     <tbody>
         <tr>
             <th>Id</th>
-            <td>{{ circuit.id }}</td>
+            <td>{{ programmation.circuit.id }}</td>
         </tr>
         <tr>
             <th>Description</th>
-            <td>{{ circuit.description }}</td>
+            <td>{{ programmation.circuit.description }}</td>
         </tr>
          <tr>
             <th>Pays Depart</th>
-            <td>{{ circuit.paysDepart }}</td>
+            <td>{{ programmation.circuit.paysDepart }}</td>
         </tr>
          <tr>
             <th>Ville Depart</th>
-            <td>{{ circuit.villeDepart }}</td>
+            <td>{{ programmation.circuit.villeDepart }}</td>
         </tr>
          <tr>
             <th>Ville Arrivee</th>
-            <td>{{ circuit.villeArrivee }}</td>
+            <td>{{ programmation.circuit.villeArrivee }}</td>
         </tr>
          <tr>
             <th>Duree Circuit</th>
-            <td>{{ circuit.dureeCircuit }}</td>
+            <td>{{ programmation.circuit.dureeCircuit }}</td>
         </tr>
     </tbody>
 </table>
@@ -42,7 +42,7 @@
     </tr>
   </thead>
 
-  {%  for etape in circuit.etapes %}
+  {%  for etape in programmation.circuit.etapes %}
   <tr>
     <td>{{ etape.numeroEtape }}</td>
     <td>{{ etape.villeEtape }}</td>
@@ -51,7 +51,7 @@
   {% endfor %} {# etapes #}
 </table>
 
-{{ dump(circuit) }}
+{{ dump(programmation) }}
 
 <a href="{{ path('frontoffice_home') }}">retour à l'accueil</a>
 	
