@@ -16,11 +16,14 @@ class FrontofficeHomeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $programmations = $em->getRepository(ProgrammationCircuit::class)->findAll();
+        $circuits = $em->getRepository(Circuit::class)->findAll();
         
         dump($programmations);
+        dump($circuits);
         
         return $this->render('front/home.html.twig', array(
             'programmations' => $programmations,
+            'circuits' => $circuits,
         ));
     }
     /**
@@ -39,5 +42,33 @@ class FrontofficeHomeController extends AbstractController
         return $this->render('front/circuit_show.html.twig', [
             'programmation' => $programmation,
         ]);
+    }
+    /**
+     * @Route("/circuit/likes/{id}", name="frontoffice_circuit_likes")
+     */
+    public function circuitLike($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $programmation = $em->getRepository(ProgrammationCircuit::class)->find($id);
+        $likes = $this->get('session')->get('likes');
+        
+        // si l'identifiant n'est pas présent dans le tableau des likes, l'ajouter
+        if ( $likes == null || (! in_array($id, $likes)) )
+        {
+            $likes[] = $id;
+        }
+        else
+        // sinon, le retirer du tableau
+        {
+            $likes = array_diff($likes, array($id));
+        }
+        $this->get('session')->set('likes', $likes);
+        
+        
+        dump($likes);
+        
+        return $this->render('front/circuit_show.html.twig', array(
+            'programmation' => $programmation,
+        ));
     }
 }
